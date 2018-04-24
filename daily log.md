@@ -27,13 +27,13 @@
 
 - [x] 配置下服务器的环境
 
-- [ ] tvnet改成pytorch版本
+- [x] tvnet改成pytorch版本 基本完成，直接跑结果错误，需要显示中间结果debug下
 
 ## 0424
 
 - [ ] 加入 data augumentation 
 
-- [ ] 看别的sfm网络对kitti数据集是如何训练的，是一个一个序列来还是全部一起，其他的都是多个序列一起的，现在改成
+- [x] 看别的sfm网络对kitti数据集是如何训练的，是一个一个序列来还是全部一起，其他的都是多个序列一起的，现在改成
 ```
 train_seq = ['V2_01_easy', 'MH_02_easy', 'V1_03_difficult', 'V1_01_easy', 'V1_02_medium', 'V2_02_medium','MH_04_difficult', 'MH_03_medium'] 
 

@@ -1,4 +1,5 @@
 */_pycache__
 *.pyc
 *LOG_Euroc
+*LOG_Kitti
 *build

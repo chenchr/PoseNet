@@ -23,6 +23,8 @@ class base_dataset(data.Dataset):
         # T_relative = inv(T_2) * T_1
         im1, im2 = [imread(self.image_list[i]) for i in [index, index+self.stride]]
         h, w = im1.shape[0:2]
+        if w > 1000:
+            h, w = 370, 1226
         im1, im2 = [imresize(i, (h//2, w//2)).astype(np.float32) for i in [im1, im2]]
         pose1, pose2 = self.pose_list[index].astype(np.float32), self.pose_list[index+self.stride].astype(np.float32)
         relative_pose = np.linalg.inv(pose2).dot(pose1) #TODO need check

@@ -57,7 +57,7 @@ def main():
                     [0,       0,       1]]).astype(np.float32)
     distortion =  np.array([-0.28340811, 0.07395907, 0.00019359, 1.76187114e-05]).astype(np.float32)
     rm = Remapper(old_size, old_k, distortion, args.full)
-    for folder in a:
+    for folder in subfolder:
         path_corr = os.path.join(path_old, folder, 'mav0/cam0/data.csv')
         path_pose = os.path.join(path_old, folder, 'mav0/state_groundtruth_estimate0/data.csv')
         df_new = get_new_csv(path_corr, path_pose)
