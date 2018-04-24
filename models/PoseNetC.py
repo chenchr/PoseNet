@@ -23,6 +23,8 @@ def conv(batchNorm, in_planes, out_planes, kernel_size=3, stride=1):
 def predict_flow(in_planes):
     return nn.Conv2d(in_planes,2,kernel_size=3,stride=1,padding=1,bias=True)
 
+import numpy as np
+from matplotlib import pyplot as plt
 
 class PoseNetC(nn.Module):
     expansion = 1
@@ -68,6 +70,19 @@ class PoseNetC(nn.Module):
 
     def forward(self, x):
         ima, imb= x[:,0:3,:,:], x[:,3:6,:,:]
+
+        # print('batch shape: {}'.format(x.data.shape))
+        # im_test1, im_test2 = x[0, 0:3, :, :].data.cpu().numpy(), x[0, 3:6, :, :].data.cpu().numpy()
+        # im_test1, im_test2 = [np.transpose(im1, (1,2,0)) for im1 in [im_test1, im_test2]]
+        # im_test1, im_test2 = [(im1 + 1)/2 for im1 in [im_test1, im_test2]]
+        # print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
+        # print('image shape: {}'.format(im_test1.shape))
+        # plt.subplot(2,1,1)
+        # plt.imshow(im_test2)
+        # plt.subplot(2,1,2)
+        # plt.imshow(im_test1)
+        # plt.show()
+
         out_conv2a = self.conv2(self.conv1(ima))
         out_conv2b = self.conv2(self.conv1(imb))
         out_conv3_1a = self.conv3(out_conv2a)
