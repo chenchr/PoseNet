@@ -59,7 +59,11 @@ class PoseNetC(nn.Module):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 
-
+    def trainable_parameters(self):
+        ll = [param for name, param in self.named_parameters() if param.requires_grad == True]
+        # print("ll:")
+        # print(ll)
+        return ll
 
 
     def forward(self, x):
