@@ -46,7 +46,7 @@ parser.add_argument('--solver', default='adam',choices=['adam','sgd'],
                     help='solver algorithms')
 parser.add_argument('-j', '--workers', default=8, type=int, metavar='N',
                     help='number of data loading workers')
-parser.add_argument('--epochs', default=300, type=int, metavar='N',
+parser.add_argument('--epochs', default=200, type=int, metavar='N',
                     help='number of total epochs to run')
 parser.add_argument('--epoch-size', default=0, type=int, metavar='N',
                     help='manual epoch size (will match dataset size if set to 0)')
@@ -70,7 +70,7 @@ parser.add_argument('--pretrained', dest='pretrained', default=None,
                     help='path to pre-trained model')
 parser.add_argument('--no-date', action='store_true',
                     help='don\'t append date timestamp to folder' )
-parser.add_argument('--milestones', default=[100,150,200], metavar='N', nargs='*', help='epochs at which learning rate is divided by 2')
+parser.add_argument('--milestones', default=[50,100,150], metavar='N', nargs='*', help='epochs at which learning rate is divided by 2')
 
 lowest_error = -1
 n_iter = 0

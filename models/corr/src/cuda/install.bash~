@@ -1,0 +1,2 @@
+TORCH=$(python -c "import os; import torch; print(os.path.dirname(torch.__file__))")
+nvcc -c -o bf_filter.cu.o bf_filter_kernel.cu --gpu-architecture=compute_30 --gpu-code=compute_30 --compiler-options -fPIC -I ${TORCH}/lib/include/TH -I ${TORCH}/lib/include/THC

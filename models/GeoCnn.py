@@ -132,16 +132,16 @@ class CNNGeometric(nn.Module):
     def forward(self, im_all):
         im1 = im_all[:, 0:3, :, :]
         im2 = im_all[:, 3:6, :, :]
-        im_test1, im_test2 = im1[0].data.cpu().numpy(), im2[0].data.cpu().numpy()
-        im_test1, im_test2 = [np.transpose(im, (1,2,0)) for im in [im_test1, im_test2]]
-        im_test1, im_test2 = [np.clip((im*0.229 + 0.485)/1,0,1) for im in [im_test1, im_test2]]
-        print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
-        print('image shape: {}'.format(im_test1.shape))
-        plt.subplot(2,1,1)
-        plt.imshow(im_test2)
-        plt.subplot(2,1,2)
-        plt.imshow(im_test1)
-        plt.show()
+        # im_test1, im_test2 = im1[0].data.cpu().numpy(), im2[0].data.cpu().numpy()
+        # im_test1, im_test2 = [np.transpose(im, (1,2,0)) for im in [im_test1, im_test2]]
+        # im_test1, im_test2 = [np.clip((im*0.229 + 0.485)/1,0,1) for im in [im_test1, im_test2]]
+        # print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
+        # print('image shape: {}'.format(im_test1.shape))
+        # plt.subplot(2,1,1)
+        # plt.imshow(im_test2)
+        # plt.subplot(2,1,2)
+        # plt.imshow(im_test1)
+        # plt.show()
         # do feature extraction
         feature_A = self.FeatureExtraction(im1)
         feature_B = self.FeatureExtraction(im2)
