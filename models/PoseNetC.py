@@ -36,10 +36,11 @@ class PoseNetC(nn.Module):
         self.conv1  = conv(self.batchNorm,   3,   64, kernel_size=7, stride=2)
         self.conv2  = conv(self.batchNorm,  64,  128, kernel_size=5, stride=2)
         self.conv3  = conv(self.batchNorm, 128,  256, kernel_size=5, stride=2)
-        self.conv_redir  = conv(self.batchNorm, 256,  32, kernel_size=1, stride=1)
+        # self.conv_redir  = conv(self.batchNorm, 256,  32, kernel_size=1, stride=1)
         self.corr = CorrFunction(20,1,20,1,2)
         self.LU_after_corr = nn.LeakyReLU(0.1,inplace=True)
-        self.conv3_1 = conv(self.batchNorm, 473,  256)
+        # self.conv3_1 = conv(self.batchNorm, 473,  256)
+        self.conv3_1 = conv(self.batchNorm, 441,  256)
         self.conv4   = conv(self.batchNorm, 256,  512, stride=2)
         self.conv4_1 = conv(self.batchNorm, 512,  512)
         self.conv5   = conv(self.batchNorm, 512,  512, stride=2)
@@ -89,10 +90,11 @@ class PoseNetC(nn.Module):
         out_conv3_1b = self.conv3(out_conv2b)
 
         out_corr_lu = self.LU_after_corr(self.corr(out_conv3_1a, out_conv3_1b))
-        out_redir = self.conv_redir(out_conv3_1a)
-        concat473 = torch.cat((out_corr_lu, out_redir), 1)
+        # out_redir = self.conv_redir(out_conv3_1a)
+        # concat473 = torch.cat((out_corr_lu, out_redir), 1)
 
-        out_conv3 = self.conv3_1(concat473)
+        # out_conv3 = self.conv3_1(concat473)
+        out_conv3 = self.conv3_1(out_corr_lu)
 
         out_conv4 = self.conv4_1(self.conv4(out_conv3))
         out_conv5 = self.conv5_1(self.conv5(out_conv4))
