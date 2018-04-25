@@ -47,7 +47,7 @@ class PoseNetC(nn.Module):
         self.conv6   = conv(self.batchNorm, 512, 1024, stride=2)
         self.conv6_1 = conv(self.batchNorm,1024, 1024)
 
-        self.pose_pred = nn.Conv2d(1024, 7, kernel_size=5, padding=0)
+        self.pose_pred = nn.Conv2d(1024, 7, kernel_size=3, padding=0)
 
         self.qua_weight = nn.Parameter(torch.ones(1))
         self.t_weight = nn.Parameter(torch.ones(1))
