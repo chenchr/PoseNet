@@ -39,3 +39,7 @@ train_seq = ['V2_01_easy', 'MH_02_easy', 'V1_03_difficult', 'V1_01_easy', 'V1_02
 
 test_seq  = ['MH_05_difficult', 'V2_03_difficult']
 ```
+
+## 0425
+
+- [x] kitti的平移基本都是朝前，在kitti上训练网络train test都能收敛，在euroc上不行，现在将算loss时的normalize只在test模式下做，train直接算loss

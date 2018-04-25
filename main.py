@@ -209,7 +209,7 @@ def train(train_loader, model, optimizer, epoch, train_writer):
         if args.qua_weight != -100:
             qua_weight = torch.autograd.Variable(torch.ones(1).fill_(args.qua_weight)).type_as(target_var)
             t_weight = torch.autograd.Variable(torch.zeros(1)).type_as(target_var)
-        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight)
+        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight, test=False)
             
         # record three error
         all_error_meter.update(all_error.data[0])
@@ -262,7 +262,7 @@ def validate(val_loader, model, epoch):
         if args.qua_weight != -100:
             qua_weight = torch.autograd.Variable(torch.ones(1).fill_(args.qua_weight)).type_as(target_var)
             t_weight = torch.autograd.Variable(torch.zeros(1)).type_as(target_var)
-        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight)
+        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight, test=True)
         # record EPE
         all_error_meter.update(all_error.data[0])
         qua_error_meter.update(qua_error.data[0])
@@ -287,6 +287,9 @@ def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     if is_best:
         shutil.copyfile(os.path.join(save_path,filename), os.path.join(save_path,'model_best.pth.tar'))
 
+def normalize(vec):
+    divided = torch.sqrt(vec.pow(2).sum(dim=1, keepdim=True)) + 1e-8
+    return vec/divided
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
