@@ -17,7 +17,6 @@ from tensorboardX import SummaryWriter
 import numpy as np
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 model_names = sorted(name for name in models.__dict__
                     if name.islower() and not name.startswith("_"))
 
@@ -74,6 +73,9 @@ parser.add_argument('--no-date', action='store_true',
                     help='don\'t append date timestamp to folder' )
 parser.add_argument('--milestones', default=[50,100,150], metavar='N', nargs='*', help='epochs at which learning rate is divided by 2')
 
+parser.add_argument('--gpu', type=int, nargs='+', required=True,
+                    help='specify which gpu to use')
+
 lowest_error = -1
 n_iter = 0
 
@@ -81,6 +83,7 @@ n_iter = 0
 def main():
     global args, lowest_error, save_path
     args = parser.parse_args()
+    os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpu)
     save_path = '{},{},{}epochs{},b{},lr{},stride{}'.format(
         args.arch,
         args.solver,
