@@ -34,12 +34,25 @@
 - [ ] 加入 data augumentation 
 
 - [x] 看别的sfm网络对kitti数据集是如何训练的，是一个一个序列来还是全部一起，其他的都是多个序列一起的，现在改成
-```
-train_seq = ['V2_01_easy', 'MH_02_easy', 'V1_03_difficult', 'V1_01_easy', 'V1_02_medium', 'V2_02_medium','MH_04_difficult', 'MH_03_medium'] 
+    ```
+    train_seq = ['V2_01_easy', 'MH_02_easy', 'V1_03_difficult', 'V1_01_easy', 'V1_02_medium', 'V2_02_medium','MH_04_difficult', 'MH_03_medium'] 
 
-test_seq  = ['MH_05_difficult', 'V2_03_difficult']
-```
+    test_seq  = ['MH_05_difficult', 'V2_03_difficult']
+    ```
 
 ## 0425
 
 - [x] kitti的平移基本都是朝前，在kitti上训练网络train test都能收敛，在euroc上不行，现在将算loss时的normalize只在test模式下做，train直接算loss
+
+## 0426
+
+- [x] tvnet 学习一下tensorflow summary的使用，逐步对照输出结果: 已经找出问题原因，通过逐步画图heat map对比比较好找，发现是pytorch的mask index的bug：例如有时候
+    ```
+    masks1 = a > b
+    c[masks1] = d
+    ```
+    这样没法正常工作，但是masks1的值都是对的，通过以下代码迂回解决：
+    ```
+    c = masks1.float() * d
+    ```
+    后面还要继续搜下为什么
