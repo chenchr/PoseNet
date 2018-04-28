@@ -71,8 +71,11 @@ def quaternion_to_rotationVec(quaternion):
         w, x, y, z = [i/norm for i in [w, x, y, z]]
     angle = 2 * math.acos(w)
     s = math.sqrt(1-w*w)
-    multi = angle / s
-    x, y, z = [i * multi for i in [x, y, z]]
+    if s > 0.001:
+        multi = angle / s
+        x, y, z = [i * multi for i in [x, y, z]]
+    else:
+        x, y, z = [i * angle for i in [x, y, z]]
     vec = np.array([x, y, z])
     return vec.astype(np.float32)
 
