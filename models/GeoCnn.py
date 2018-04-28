@@ -162,7 +162,7 @@ class CNNGeometric(nn.Module):
         return theta, torch.autograd.Variable(torch.ones(1)).type_as(theta), torch.autograd.Variable(torch.ones(1)).type_as(theta)
 
 def geocnn(data=None):
-    model = CNNGeometric(geometric_model='se3')
+    model = CNNGeometric(geometric_model='affine')
     if data is not None:
         model.load_state_dict(data['state_dict'])
     return model

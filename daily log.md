@@ -42,11 +42,11 @@
 
 ## 0425
 
-- [x] kitti的平移基本都是朝前，在kitti上训练网络train test都能收敛，在euroc上不行，现在将算loss时的normalize只在test模式下做，train直接算loss
+- [x] kitti的平移基本都是朝前，在 kitti 上训练网络 train test 都能收敛，在 euroc 上不行，现在将算 loss 时的 normalize 只在 test 模式下做，train 直接算loss
 
 ## 0426
 
-- [x] tvnet 学习一下tensorflow summary的使用，逐步对照输出结果: 已经找出问题原因，通过逐步画图heat map对比比较好找，发现是pytorch的mask index的bug：例如有时候
+- [x] tvnet 学习一下 tensorflow summary 的使用，逐步对照输出结果: 已经找出问题原因，通过逐步画图 heat map 对比比较好找，发现是pytorch的mask index的bug：例如有时候
     ```
     masks1 = a > b
     c[masks1] = d
@@ -56,3 +56,18 @@
     c = masks1.float() * d
     ```
     后面还要继续搜下为什么
+
+    实验发现求光流前先做高斯平滑对结果影响挺大的
+
+- [ ] 思路1：类似 Direct Multichannel Tracking，利用cnn得到 feature pyramid，然后进行 TV-L1 ，由于整个过程是端到端的，可以直接进行学习
+    问题: vectorial 的 TV-L1 好像还没有一个比较简单的可以利用 pytorch 的实现，这部分到时问下老师
+
+- [x] 现在需要先将 TV-L1 的代码整理完整，可以实现训练，已经完成
+
+## 0427
+
+- demon pose 网络的输出是 r，t，scale，其中r的参数化方式是旋转向量，t的 groundtruth 是单位向量，相当于只有方向，然后 loss 是直接拿网络输出和 groundtruth 做差得到 L2 norm 的
+
+- [x] 把旋转参数化从四元数改成旋转向量
+
+- [ ] 实现下 demon 的 pose 估计

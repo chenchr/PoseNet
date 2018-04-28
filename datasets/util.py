@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 #adapt from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
 def rotation_matrix_to_quaternion(rotation):
@@ -62,6 +63,19 @@ def quaternion_to_rotation_matrix(quaternion):
     rotation[2,2] = 1 - 2 * (xx + yy)
 
     return rotation
+
+def quaternion_to_rotationVec(quaternion):
+    w, x, y, z = quaternion
+    if w > 1:
+        norm = math.sqrt(w*w + x*x + y*y + z*z)
+        w, x, y, z = [i/norm for i in [w, x, y, z]]
+    angle = 2 * math.acos(w)
+    s = math.sqrt(1-w*w)
+    multi = angle / s
+    x, y, z = [i * multi for i in [x, y, z]]
+    vec = np.array([x, y, z])
+    return vec.astype(np.float32)
+
 
 def vector_to_transform(vector):
     transform = np.eye(4).astype(np.float32)

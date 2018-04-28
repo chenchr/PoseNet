@@ -32,7 +32,8 @@ class base_dataset(data.Dataset):
         rotation = relative_pose[0:3, 0:3]
         translation = relative_pose[0:3, 3]
         quaternion = util.rotation_matrix_to_quaternion(rotation)
-        vector = np.append(quaternion, translation)
+        rotationVec = util.quaternion_to_rotationVec(quaternion)
+        vector = np.append(rotationVec, translation)
         if(len(im1.shape) == 2):
             im1, im2 = [np.expand_dims(im, axis=2) for im in [im1, im2]]
             im1, im2 = [np.repeat(im, 3, axis=2) for im in [im1, im2]]

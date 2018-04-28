@@ -42,7 +42,7 @@ class PoseNetS(nn.Module):
         self.conv6 = conv(conv_planes[4], conv_planes[5], bn=bn)
         self.conv7 = conv(conv_planes[5], conv_planes[6], bn=bn)
 
-        self.pose_pred = nn.Conv2d(conv_planes[6], 6, kernel_size=1, padding=0)
+        self.pose_pred = nn.Conv2d(conv_planes[6], 7, kernel_size=1, padding=0)
 
         self.qua_weight = nn.Parameter(torch.ones(1))
         self.t_weight = nn.Parameter(torch.ones(1))
