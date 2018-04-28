@@ -262,7 +262,7 @@ def validate(val_loader, model, epoch):
         if args.qua_weight != -100:
             qua_weight = torch.autograd.Variable(torch.ones(1).fill_(args.qua_weight)).type_as(target_var)
             t_weight = torch.autograd.Variable(torch.zeros(1)).type_as(target_var)
-        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight, test=True)
+        all_error, qua_error, t_error = custom_loss(output_var, target_var, qua_weight, t_weight, test=False)
         # record EPE
         all_error_meter.update(all_error.data[0])
         qua_error_meter.update(qua_error.data[0])
