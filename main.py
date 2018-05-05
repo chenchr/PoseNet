@@ -85,7 +85,7 @@ def main():
     global args, lowest_error, save_path
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpu)
-    save_path = '{}，{},{},{}epochs{},b{},lr{},stride{}'.format(
+    save_path = '{},{},{},{}epochs{},b{},lr{},stride{}'.format(
         args.prefix,
         args.arch,
         args.solver,
