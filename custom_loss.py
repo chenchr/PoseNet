@@ -7,10 +7,10 @@ def normalize(vec):
 
 def custom_loss(estimate, target, qua_weight, t_weight, test=False):
     # print("estimete: {}\ntarget: {}".format(estimate[0,:], target[0,:]))
-    if test:
-        qua_estimate, qua_target = normalize(estimate[:, 0:3]), normalize(target[:, 0:3])
-    else:
-        rVec_estimate, rVec_target = estimate[:, 0:3], target[:, 0:3]
+    #if test:
+     #   qua_estimate, qua_target = normalize(estimate[:, 0:3]), normalize(target[:, 0:3])
+    #else:
+    rVec_estimate, rVec_target = estimate[:, 0:3], target[:, 0:3]
     # we, xe, ye, ze = qua_estimate[0,:].data.cpu().numpy()
     # wt, xt, yt, zt = qua_target[0,:].data.cpu().numpy()
     # print('qua estimate: {}, target: {}'.format([we,xe,ye,ze], [wt,xt,yt,zt]))
