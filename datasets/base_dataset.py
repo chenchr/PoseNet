@@ -30,6 +30,7 @@ class base_dataset(data.Dataset):
             if index >= length:
                 index = index - length
                 folder_i = folder_i + 1
+		continue
             break
 
         im1, im2 = [imread(self.image_list[folder_i][i]) for i in [index, index+self.stride]]
