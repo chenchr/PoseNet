@@ -57,4 +57,7 @@ class base_dataset(data.Dataset):
         return im_all, vector
 
     def __len__(self):
-        return len(self.image_list) - self.stride
+        len_all = 0
+        for sub_list in self.image_list:
+            len_all = len_all + len(sub_list) - self.stride
+        return len_all
