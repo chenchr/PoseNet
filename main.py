@@ -85,8 +85,7 @@ def main():
     global args, lowest_error, save_path
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpu)
-    save_path = '{},{},{},{}epochs{},b{},lr{},stride{}'.format(
-        args.prefix,
+    save_path = '{},{},{}epochs{},b{},lr{},stride{}'.format(
         args.arch,
         args.solver,
         args.epochs,
@@ -96,7 +95,7 @@ def main():
         args.stride)
     if not args.no_date:
         timestamp = datetime.datetime.now().strftime("%m-%d-%H:%M")
-        save_path = os.path.join(timestamp,save_path)
+        save_path = os.path.join(args.prefix+timestamp, save_path)
     save_path = os.path.join('LOG_'+args.dataset,save_path)
     print('=> will save everything to {}'.format(save_path))
     if not os.path.exists(save_path):
