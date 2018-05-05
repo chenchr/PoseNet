@@ -3,6 +3,7 @@ from __future__ import division
 import torch
 import torch.nn as nn
 import matplotlib as mpl
+import cv2
 mpl.use('Agg')
 
 __all__ = [
@@ -74,14 +75,16 @@ class PoseNetS(nn.Module):
         print("tensor shape: {}".format(im.data.shape))
         im_test1, im_test2 = im[0, 0:3, :, :].data.cpu().numpy(), im[0, 3:6, :, :].data.cpu().numpy()
         im_test1, im_test2 = [np.transpose(im1, (1,2,0)) for im1 in [im_test1, im_test2]]
-        im_test1, im_test2 = [(im1 + 1)/2 for im1 in [im_test1, im_test2]]
-        print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
-        print('image shape: {}'.format(im_test1.shape))
-        plt.subplot(2,1,1)
-        plt.imshow(im_test2)
-        plt.subplot(2,1,2)
-        plt.imshow(im_test1)
-        plt.savefig('/data/chenchr/123.png')
+        im_test1 = im_test1.astype(np.uint8)
+        cv2.imwrite('/data/chenchr/123.png', im_test1)
+        # im_test1, im_test2 = [(im1 + 1)/2 for im1 in [im_test1, im_test2]]
+        # print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
+        # print('image shape: {}'.format(im_test1.shape))
+        # plt.subplot(2,1,1)
+        # plt.imshow(im_test2)
+        # plt.subplot(2,1,2)
+        # plt.imshow(im_test1)
+        # plt.savefig('/data/chenchr/123.png')
         # plt.show()
         out_conv1 = self.conv1(im)
         out_conv2 = self.conv2(out_conv1)
