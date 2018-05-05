@@ -13,6 +13,10 @@ class base_dataset(data.Dataset):
     def __init__(self, image_list, pose_list, stride, transform):
         self.image_list = image_list
         self.pose_list = pose_list
+        self.sub_num = len(self.image_list)
+        self.sub_len = []
+        for sub_list in self.image_list:
+            self.sub_len.append(len(sub_list-stride))
         self.stride = stride
         self.transform = transform
 
@@ -21,12 +25,18 @@ class base_dataset(data.Dataset):
         # vector_w = T_2 * vector_b_2
         # vector_b_2 = T_relative * vector_b_1
         # T_relative = inv(T_2) * T_1
-        im1, im2 = [imread(self.image_list[i]) for i in [index, index+self.stride]]
+        folder_i = 0
+        for length in self.sub_len:
+            if index > length:
+                index = index - length
+                folder_i = folder_i + 1
+
+        im1, im2 = [imread(self.image_list[folder_i][i]) for i in [index, index+self.stride]]
         h, w = im1.shape[0:2]
         if w > 1000:
             h, w = 370, 1226
         im1, im2 = [imresize(i, (h//2, w//2)).astype(np.float32) for i in [im1, im2]]
-        pose1, pose2 = self.pose_list[index].astype(np.float32), self.pose_list[index+self.stride].astype(np.float32)
+        pose1, pose2 = self.pose_list[folder_i][index].astype(np.float32), self.pose_list[folder_i][index+self.stride].astype(np.float32)
         relative_pose = np.linalg.inv(pose2).dot(pose1) #TODO need check
         # print('relative_pose: {}'.format(relative_pose))
         rotation = relative_pose[0:3, 0:3]

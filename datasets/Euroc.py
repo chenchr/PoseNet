@@ -26,8 +26,8 @@ def Euroc(root, train_sequence, test_sequence, split, stride, transform):
             index, data = row
             pose_list.append(data.tolist()[1:-1])
         pose_list = [util.vector_to_transform(item) for item in pose_list]
-        train_image_list.extend(image_list)
-        train_pose_list.extend(pose_list)
+        train_image_list.append(image_list)
+        train_pose_list.append(pose_list)
     # train_dataset = base_dataset(image_list[0:int(len(image_list)*split)], pose_list[0:int(len(image_list)*split)], stride, transform)
     train_dataset = base_dataset(train_image_list, train_pose_list, stride, transform)
 
@@ -43,8 +43,8 @@ def Euroc(root, train_sequence, test_sequence, split, stride, transform):
             index, data = row
             pose_list.append(data.tolist()[1:-1])
         pose_list = [util.vector_to_transform(item) for item in pose_list]
-        test_image_list.extend(image_list)
-        test_pose_list.extend(pose_list)
+        test_image_list.append(image_list)
+        test_pose_list.append(pose_list)
     # test_dataset = base_dataset(image_list[int(len(image_list)*split):], pose_list[int(len(image_list)*split):], stride, transform)
     test_dataset = base_dataset(test_image_list, test_pose_list, stride, transform)
     return train_dataset, test_dataset

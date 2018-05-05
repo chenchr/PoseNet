@@ -32,8 +32,8 @@ def Kitti(root, train_sequence, test_sequence, split=0.9, stride=2, transform=No
         for i in pose_list:
             temp.append(np.row_stack((np.array(i.split(' ')).reshape(3, 4).astype(np.float32), row)))
         pose_list = temp
-        all_image_list.extend(image_list)
-        all_pose_list.extend(pose_list)
+        all_image_list.append(image_list)
+        all_pose_list.append(pose_list)
         # train_dataset = base_dataset(image_list[0:int(len(image_list)*split)], pose_list[0:int(len(image_list)*split)], stride, transform)
     train_dataset = base_dataset(all_image_list, all_pose_list, stride, transform)
 
@@ -59,8 +59,8 @@ def Kitti(root, train_sequence, test_sequence, split=0.9, stride=2, transform=No
         for i in pose_list:
             temp.append(np.row_stack((np.array(i.split(' ')).reshape(3, 4).astype(np.float32), row)))
         pose_list = temp
-        all_image_list.extend(image_list)
-        all_pose_list.extend(pose_list)
+        all_image_list.append(image_list)
+        all_pose_list.append(pose_list)
     test_dataset = base_dataset(all_image_list, all_pose_list, stride, transform)
 
     return train_dataset, test_dataset
