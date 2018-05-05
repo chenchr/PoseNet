@@ -27,7 +27,7 @@ class base_dataset(data.Dataset):
         # T_relative = inv(T_2) * T_1
         folder_i = 0
         for length in self.sub_len:
-            if index > length:
+            if index >= length:
                 index = index - length
                 folder_i = folder_i + 1
 
