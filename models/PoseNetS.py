@@ -2,6 +2,8 @@
 from __future__ import division
 import torch
 import torch.nn as nn
+import matplotlib as mpl
+mpl.use('Agg')
 
 __all__ = [
     'posenets', 'posenets_bn'
