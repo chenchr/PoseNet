@@ -38,9 +38,11 @@ class base_dataset(data.Dataset):
         h, w = im1.shape[0:2]
         if w > 1000:
             h, w = 370, 1226
-        im1, im2 = [imresize(i, (h//2, w//2)).astype(np.float32) for i in [im1, im2]]
+        im1, im2 = [imresize(i, (h//2, w//2)) for i in [im1, im2]]
         #binary input
         im1, im2 = [cv2.adaptiveThreshold(i,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2) for i in [im1, im2]]
+        im1 = im1.astype(np.float32)
+        im2 = im2.astype(np.float32)
         pose1, pose2 = self.pose_list[folder_i][index].astype(np.float32), self.pose_list[folder_i][index+self.stride].astype(np.float32)
         relative_pose = np.linalg.inv(pose2).dot(pose1) #TODO need check
         # print('relative_pose: {}'.format(relative_pose))
