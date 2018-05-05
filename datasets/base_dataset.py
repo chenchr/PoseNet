@@ -16,7 +16,7 @@ class base_dataset(data.Dataset):
         self.sub_num = len(self.image_list)
         self.sub_len = []
         for sub_list in self.image_list:
-            self.sub_len.append(len(sub_list) - self.stride)
+            self.sub_len.append(len(sub_list) - stride)
         self.stride = stride
         self.transform = transform
 
