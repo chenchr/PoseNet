@@ -104,7 +104,7 @@ def main():
     train_writer = SummaryWriter(os.path.join(save_path,'train'))
     test_writer = SummaryWriter(os.path.join(save_path,'test'))
 
-    Data loading code
+    # Data loading code
     input_transform = transforms.Compose([
         transforms.Normalize(mean=[0, 0, 0], std=[255, 255, 255]),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
