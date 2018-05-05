@@ -72,11 +72,11 @@ class PoseNetS(nn.Module):
 
     def forward(self, im):
         #test image
-        print("tensor shape: {}".format(im.data.shape))
-        im_test1, im_test2 = im[0, 0:3, :, :].data.cpu().numpy(), im[0, 3:6, :, :].data.cpu().numpy()
-        im_test1, im_test2 = [np.transpose(im1, (1,2,0)) for im1 in [im_test1, im_test2]]
-        im_test1 = im_test1.astype(np.uint8)
-        cv2.imwrite('/data/chenchr/123.png', im_test1)
+        # print("tensor shape: {}".format(im.data.shape))
+        # im_test1, im_test2 = im[0, 0:3, :, :].data.cpu().numpy(), im[0, 3:6, :, :].data.cpu().numpy()
+        # im_test1, im_test2 = [np.transpose(im1, (1,2,0)) for im1 in [im_test1, im_test2]]
+        # im_test1 = im_test1.astype(np.uint8)
+        # cv2.imwrite('/data/chenchr/123.png', im_test1)
         # im_test1, im_test2 = [(im1 + 1)/2 for im1 in [im_test1, im_test2]]
         # print('max: {}, min: {}'.format(np.max(im_test1), np.min(im_test1)))
         # print('image shape: {}'.format(im_test1.shape))

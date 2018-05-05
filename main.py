@@ -104,12 +104,11 @@ def main():
     train_writer = SummaryWriter(os.path.join(save_path,'train'))
     test_writer = SummaryWriter(os.path.join(save_path,'test'))
 
-    # Data loading code
-    # input_transform = transforms.Compose([
-    #     transforms.Normalize(mean=[0, 0, 0], std=[255, 255, 255]),
-    #     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    # ])
-    input_transform = None
+    Data loading code
+    input_transform = transforms.Compose([
+        transforms.Normalize(mean=[0, 0, 0], std=[255, 255, 255]),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
     print("=> fetching img pairs in '{}'".format(args.root))
     train_set, test_set = datasets.__dict__[args.dataset](args.root, args.train_seq, args.test_seq, args.split_value, args.stride, input_transform)
     print('{} samples found, {} train samples and {} test samples '.format(len(test_set)+len(train_set),
