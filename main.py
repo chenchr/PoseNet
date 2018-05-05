@@ -75,7 +75,8 @@ parser.add_argument('--milestones', default=[50,100,150], metavar='N', nargs='*'
 
 parser.add_argument('--gpu', type=int, nargs='+', required=True,
                     help='specify which gpu to use')
-
+parser.add_argument('--prefix', required=True,
+                    help='directory prefix')
 lowest_error = -1
 n_iter = 0
 
@@ -84,7 +85,8 @@ def main():
     global args, lowest_error, save_path
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(str(x) for x in args.gpu)
-    save_path = '{},{},{}epochs{},b{},lr{},stride{}'.format(
+    save_path = '{}，{},{},{}epochs{},b{},lr{},stride{}'.format(
+        args.prefix,
         args.arch,
         args.solver,
         args.epochs,
