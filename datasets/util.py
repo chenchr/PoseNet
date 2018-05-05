@@ -69,6 +69,10 @@ def quaternion_to_rotationVec(quaternion):
     if w > 1:
         norm = math.sqrt(w*w + x*x + y*y + z*z)
         w, x, y, z = [i/norm for i in [w, x, y, z]]
+    if w > 0:
+        w = w - 1e-12
+    if w < 0:
+        w = w + 1e-12
     angle = 2 * math.acos(w)
     s = math.sqrt(1-w*w)
     if s > 0.001:
