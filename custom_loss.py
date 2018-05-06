@@ -25,6 +25,6 @@ def custom_loss(estimate, target, qua_weight, t_weight, test=False):
     t_error = (t_estimate - t_target).pow(2).sum(dim=1).mean()
     # print('t error: {}'.format(t_error.data[0]))
     # all_error = qua_error * torch.exp(-qua_weight) + qua_weight + t_error * torch.exp(-t_weight) + t_weight
-    rVec_error.fill_(0) # only loss for translation
+    # rVec_error.fill_(0) # only loss for translation
     all_error = rVec_error + t_error
     return all_error, rVec_error, t_error
