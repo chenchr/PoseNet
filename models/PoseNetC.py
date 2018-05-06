@@ -90,11 +90,11 @@ class PoseNetC(nn.Module):
         out_conv3_1b = self.conv3(out_conv2b)
 
         out_corr_lu = self.LU_after_corr(self.corr(out_conv3_1a, out_conv3_1b))
-        # out_redir = self.conv_redir(out_conv3_1a)
-        # concat473 = torch.cat((out_corr_lu, out_redir), 1)
+        out_redir = self.conv_redir(out_conv3_1a)
+        concat473 = torch.cat((out_corr_lu, out_redir), 1)
 
-        # out_conv3 = self.conv3_1(concat473)
-        out_conv3 = self.conv3_1(out_corr_lu)
+        out_conv3 = self.conv3_1(concat473)
+        # out_conv3 = self.conv3_1(out_corr_lu)
 
         out_conv4 = self.conv4_1(self.conv4(out_conv3))
         out_conv5 = self.conv5_1(self.conv5(out_conv4))
